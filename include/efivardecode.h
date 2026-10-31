@@ -3,7 +3,9 @@
 #define EFIVARDECODE_H
 #include <stddef.h>
 #include <stdint.h>
-#ifdef _WIN32
+#if defined(EVD_STATIC)
+# define EVD_API
+#elif defined(_WIN32)
 # ifdef EVD_BUILD
 #  define EVD_API __declspec(dllexport)
 # else
