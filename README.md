@@ -37,7 +37,8 @@ efivardecode --payload timeout.bin --name Timeout \
   --guid 8be4df61-93ca-11d2-aa0d-00e098032b8c --attrs 0x7
 ```
 
-For an uninstalled build, add `--registry-dir ./registry`. Directory input
+Shipped rules are embedded in both static and shared builds. Optional system
+registry files override built-ins, and user files take precedence over both. Directory input
 strips the four-byte little-endian efivarfs header and indexes exact names and
 GUIDs before decoding. A name shared by two namespaces needs a GUID filter.
 Single-variable input takes the payload after that header. Decimal and 0x

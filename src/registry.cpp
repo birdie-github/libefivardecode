@@ -2,6 +2,7 @@
 #include "internal.hpp"
 #include <algorithm>
 #include <cstdlib>
+#include <iterator>
 using std::runtime_error;
 namespace {
 using Json = std::unique_ptr<json_t, decltype(&json_decref)>;
@@ -101,24 +102,26 @@ Rule parse_rule(json_t *v,Rule r) {
     }
     return r;
 }
-void directory(evd_registry &reg,const fs::path &dir,bool user) {
-    if (user && !fs::exists(dir)) return;
-    std::vector<fs::path> files;
-    for (const auto &e:fs::directory_iterator(dir))
-        if (e.path().extension()==".json" && e.is_regular_file()) files.push_back(e.path());
-    std::sort(files.begin(),files.end());
-    require(user || !files.empty(),"empty system registry: "+dir.string());
+struct Document {
+    string path;
+    const char *embedded = nullptr;
+};
+const Document builtin[] = {
+#include "builtin.inc"
+};
+void load_layer(evd_registry &reg,const std::vector<Document> &files,bool user) {
     std::set<Key> seen; std::set<string> known_aliases, known_layouts, known_sizes;
-    for (auto &path:files) {
+    for (const auto &file:files) {
         try {
             json_error_t err{};
-            Json doc(json_load_file(path.string().c_str(),JSON_REJECT_DUPLICATES,&err),json_decref);
+            Json doc(file.embedded ? json_loads(file.embedded,JSON_REJECT_DUPLICATES,&err) :
+                     json_load_file(file.path.c_str(),JSON_REJECT_DUPLICATES,&err),json_decref);
             if (!doc) throw runtime_error("line "+std::to_string(err.line)+": "+err.text);
             auto d=doc.get();
             keys(d,{"schema","guid","source","rules","guid_labels","layouts","signature_data_bytes"});
             require(integer(d,"schema",1)==1,"unsupported schema");
             Rule base; base.guid=canonical_guid(prop(d,"guid")); base.source=prop(d,"source");
-            base.file=path.string(); base.user=user;
+            base.file=file.path; base.user=user;
             if (auto sizes=json_object_get(d,"signature_data_bytes")) {
                 require(json_is_object(sizes),"signature_data_bytes must be an object");
                 const char *k; json_t *v;
@@ -160,8 +163,18 @@ void directory(evd_registry &reg,const fs::path &dir,bool user) {
                     throw runtime_error("rule "+std::to_string(i+1)+": "+e.what());
                 }
             }
-        } catch (const std::exception &e) { throw runtime_error(path.string()+": "+e.what()); }
+        } catch (const std::exception &e) { throw runtime_error(file.path+": "+e.what()); }
     }
+}
+void directory(evd_registry &reg,const fs::path &dir,bool user) {
+    if (!fs::exists(dir)) return;
+    std::vector<fs::path> files;
+    for (const auto &e:fs::directory_iterator(dir))
+        if (e.path().extension()==".json" && e.is_regular_file()) files.push_back(e.path());
+    std::sort(files.begin(),files.end());
+    std::vector<Document> documents;
+    for (const auto &path:files) documents.push_back({path.string()});
+    load_layer(reg,documents,user);
 }
 }
 string canonical_guid(string s) {
@@ -182,6 +195,7 @@ const Rule *evd_registry::find(const string &g,const string &n) const {
     auto f=families.find({g,family}); return f==families.end()?nullptr:&f->second;
 }
 void load_registry(evd_registry &reg,const char *system,const char *user) {
+    load_layer(reg,{std::begin(builtin),std::end(builtin)},false);
     directory(reg,system?system:EVD_DATADIR,false);
     if (user) { if (*user) directory(reg,user,true); }
     else {
