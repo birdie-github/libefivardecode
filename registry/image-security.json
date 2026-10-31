@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "guid": "d719b2cb-3d3a-4596-a3bc-dad00e67656f",
+  "source": "https://uefi.org/specs/UEFI/2.11/32_Secure_Boot_and_Driver_Signing.html",
+  "guid_labels": {
+    "a5c059a1-94e4-4aa7-87b5-ab155c2bf072": "X.509 certificate",
+    "c1c41626-504c-4092-aca9-41f936934328": "SHA-256 digest",
+    "826ca512-cf10-4ac9-b187-be01496631bd": "SHA-1 digest",
+    "ff3e5307-9fd0-48c9-85f1-8ad56c701e01": "SHA-384 digest",
+    "093e0fae-a6c4-4f50-9f1b-d41e2b89c19a": "SHA-512 digest"
+  },
+  "rules": [
+    {
+      "name": "db",
+      "format": "signature-list",
+      "meaning": "Authorized signatures"
+    },
+    {
+      "name": "dbx",
+      "format": "signature-list",
+      "meaning": "Forbidden signatures"
+    },
+    {
+      "name": "dbt",
+      "format": "signature-list",
+      "meaning": "Authorized timestamp signatures"
+    },
+    {
+      "name": "dbr",
+      "format": "signature-list",
+      "meaning": "Authorized recovery signatures"
+    }
+  ],
+  "signature_data_bytes": {
+    "c1c41626-504c-4092-aca9-41f936934328": 32,
+    "826ca512-cf10-4ac9-b187-be01496631bd": 20,
+    "ff3e5307-9fd0-48c9-85f1-8ad56c701e01": 48,
+    "093e0fae-a6c4-4f50-9f1b-d41e2b89c19a": 64
+  }
+}

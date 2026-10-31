@@ -1,0 +1,312 @@
+{
+  "schema": 1,
+  "guid": "8be4df61-93ca-11d2-aa0d-00e098032b8c",
+  "source": "https://uefi.org/specs/UEFI/2.11/03_Boot_Manager.html#globally-defined-variables",
+  "rules": [
+    {
+      "family": "Boot####",
+      "format": "efi-load-option",
+      "meaning": "Boot load option"
+    },
+    {
+      "name": "BootOrder",
+      "format": "u16le[]",
+      "meaning": "Boot option order",
+      "reference": {
+        "guid": "self",
+        "family": "Boot####",
+        "label": "description"
+      }
+    },
+    {
+      "name": "BootCurrent",
+      "format": "u16le",
+      "meaning": "Boot option selected for this boot",
+      "reference": {
+        "guid": "self",
+        "family": "Boot####",
+        "label": "description"
+      }
+    },
+    {
+      "name": "BootNext",
+      "format": "u16le",
+      "meaning": "Boot option requested for the next boot",
+      "reference": {
+        "guid": "self",
+        "family": "Boot####",
+        "label": "description"
+      }
+    },
+    {
+      "family": "Driver####",
+      "format": "efi-load-option",
+      "meaning": "Driver load option"
+    },
+    {
+      "name": "DriverOrder",
+      "format": "u16le[]",
+      "meaning": "Driver option order",
+      "reference": {
+        "guid": "self",
+        "family": "Driver####",
+        "label": "description"
+      }
+    },
+    {
+      "family": "SysPrep####",
+      "format": "efi-load-option",
+      "meaning": "SysPrep load option"
+    },
+    {
+      "name": "SysPrepOrder",
+      "format": "u16le[]",
+      "meaning": "SysPrep option order",
+      "reference": {
+        "guid": "self",
+        "family": "SysPrep####",
+        "label": "description"
+      }
+    },
+    {
+      "family": "PlatformRecovery####",
+      "format": "efi-load-option",
+      "meaning": "Platform recovery load option"
+    },
+    {
+      "name": "Timeout",
+      "format": "u16le",
+      "meaning": "Delay before the default boot selection",
+      "unit": "second",
+      "special": {
+        "0": "Boot immediately",
+        "65535": "Wait for user input"
+      }
+    },
+    {
+      "name": "BootOptionSupport",
+      "format": "u32le",
+      "meaning": "Boot manager capabilities",
+      "bits": {
+        "0": "Key-triggered boot options",
+        "1": "Application-category boot options",
+        "4": "System preparation options"
+      },
+      "fields": [
+        {
+          "lsb": 8,
+          "width": 2,
+          "name": "maximum_key_count",
+          "unit": "key"
+        }
+      ]
+    },
+    {
+      "name": "SecureBoot",
+      "format": "u8",
+      "meaning": "SecureBoot state",
+      "enum": {
+        "0": "Disabled",
+        "1": "Enabled"
+      },
+      "otherwise": "reserved"
+    },
+    {
+      "name": "SetupMode",
+      "format": "u8",
+      "meaning": "SetupMode state",
+      "enum": {
+        "0": "Authentication required for Secure Boot policy updates",
+        "1": "Authentication not required for Secure Boot policy updates"
+      },
+      "otherwise": "reserved"
+    },
+    {
+      "name": "VendorKeys",
+      "format": "u8",
+      "meaning": "VendorKeys state",
+      "enum": {
+        "0": "Policy modified outside vendor key authority",
+        "1": "Policy maintained under vendor key authority"
+      },
+      "otherwise": "reserved"
+    },
+    {
+      "name": "AuditMode",
+      "format": "u8",
+      "meaning": "AuditMode state",
+      "enum": {
+        "0": "Inactive",
+        "1": "Active"
+      },
+      "otherwise": "reserved"
+    },
+    {
+      "name": "DeployedMode",
+      "format": "u8",
+      "meaning": "DeployedMode state",
+      "enum": {
+        "0": "Inactive",
+        "1": "Active"
+      },
+      "otherwise": "reserved"
+    },
+    {
+      "name": "HwErrRecSupport",
+      "format": "u16le",
+      "meaning": "HwErrRecSupport state",
+      "enum": {
+        "0": "Hardware error record persistence unsupported",
+        "1": "Hardware error record persistence supported"
+      },
+      "otherwise": "reserved"
+    },
+    {
+      "name": "OsIndications",
+      "format": "u64le",
+      "meaning": "Indications requested by the OS",
+      "bits": {
+        "0": "Boot to firmware interface",
+        "1": "Timestamp revocation",
+        "2": "File capsule delivery",
+        "3": "FMP capsule delivery",
+        "4": "Capsule result variables",
+        "5": "Start OS recovery",
+        "6": "Start platform recovery",
+        "7": "Refresh JSON configuration data"
+      }
+    },
+    {
+      "name": "OsIndicationsSupported",
+      "format": "u64le",
+      "meaning": "Indications supported by firmware",
+      "bits": {
+        "0": "Boot to firmware interface",
+        "1": "Timestamp revocation",
+        "2": "File capsule delivery",
+        "3": "FMP capsule delivery",
+        "4": "Capsule result variables",
+        "5": "Start OS recovery",
+        "6": "Start platform recovery",
+        "7": "Refresh JSON configuration data"
+      }
+    },
+    {
+      "name": "ConIn",
+      "format": "device-path",
+      "meaning": "Default input console"
+    },
+    {
+      "name": "ConInDev",
+      "format": "device-path",
+      "meaning": "Available devices for default input console"
+    },
+    {
+      "name": "ConOut",
+      "format": "device-path",
+      "meaning": "Default output console"
+    },
+    {
+      "name": "ConOutDev",
+      "format": "device-path",
+      "meaning": "Available devices for default output console"
+    },
+    {
+      "name": "ErrOut",
+      "format": "device-path",
+      "meaning": "Default error console"
+    },
+    {
+      "name": "ErrOutDev",
+      "format": "device-path",
+      "meaning": "Available devices for default error console"
+    },
+    {
+      "name": "PlatformLang",
+      "format": "ascii-z",
+      "meaning": "Current platform language"
+    },
+    {
+      "name": "PlatformLangCodes",
+      "format": "languages",
+      "meaning": "Available platform languages"
+    },
+    {
+      "name": "SignatureSupport",
+      "format": "guid[]",
+      "meaning": "Supported signature types"
+    },
+    {
+      "name": "PK",
+      "format": "signature-list",
+      "meaning": "Platform key",
+      "source": "https://uefi.org/specs/UEFI/2.11/32_Secure_Boot_and_Driver_Signing.html"
+    },
+    {
+      "name": "PKDefault",
+      "format": "signature-list",
+      "meaning": "Factory default: Platform key",
+      "source": "https://uefi.org/specs/UEFI/2.11/32_Secure_Boot_and_Driver_Signing.html"
+    },
+    {
+      "name": "KEK",
+      "format": "signature-list",
+      "meaning": "Key exchange keys",
+      "source": "https://uefi.org/specs/UEFI/2.11/32_Secure_Boot_and_Driver_Signing.html"
+    },
+    {
+      "name": "KEKDefault",
+      "format": "signature-list",
+      "meaning": "Factory default: Key exchange keys",
+      "source": "https://uefi.org/specs/UEFI/2.11/32_Secure_Boot_and_Driver_Signing.html"
+    },
+    {
+      "name": "dbDefault",
+      "format": "signature-list",
+      "meaning": "Factory default: Authorized signatures",
+      "source": "https://uefi.org/specs/UEFI/2.11/32_Secure_Boot_and_Driver_Signing.html"
+    },
+    {
+      "name": "dbxDefault",
+      "format": "signature-list",
+      "meaning": "Factory default: Forbidden signatures",
+      "source": "https://uefi.org/specs/UEFI/2.11/32_Secure_Boot_and_Driver_Signing.html"
+    }
+  ],
+  "layouts": [
+    {
+      "name": "variable_attributes",
+      "format": "u32le",
+      "meaning": "Variable service attributes",
+      "source": "https://uefi.org/specs/UEFI/2.11/08_Services_Runtime_Services.html#variable-services",
+      "bits": {
+        "0": "Nonvolatile",
+        "1": "Boot service access",
+        "2": "Runtime access",
+        "3": "Hardware error record",
+        "4": "Authenticated write access",
+        "5": "Time-based authenticated write access",
+        "6": "Append write",
+        "7": "Enhanced authenticated access"
+      }
+    },
+    {
+      "name": "load_option_attributes",
+      "format": "u32le",
+      "meaning": "Load option attributes",
+      "source": "https://uefi.org/specs/UEFI/2.11/03_Boot_Manager.html#load-options",
+      "bits": {
+        "0": "Active",
+        "1": "Force reconnect",
+        "3": "Hidden"
+      },
+      "fields": [
+        {
+          "lsb": 8,
+          "width": 5,
+          "name": "category"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "guid": "4a67b082-0a4c-41cf-b6c7-440b29bb8c4f",
+  "source": "https://systemd.io/BOOT_LOADER_INTERFACE/",
+  "rules": [
+    {
+      "name": "LoaderInfo",
+      "format": "utf16-z",
+      "meaning": "Boot loader identification"
+    },
+    {
+      "name": "LoaderDevicePartUUID",
+      "format": "uuid-text",
+      "meaning": "Partition UUID of the boot loader ESP"
+    }
+  ]
+}

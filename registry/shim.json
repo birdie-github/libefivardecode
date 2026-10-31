@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "guid": "605dab50-e046-4300-abb6-3dd810dd8b23",
+  "source": "https://github.com/rhboot/shim/blob/main/MokVars.txt",
+  "rules": [
+    {
+      "name": "MokListRT",
+      "format": "signature-list",
+      "meaning": "Authorized Machine Owner Keys and hashes"
+    },
+    {
+      "name": "MokListXRT",
+      "format": "signature-list",
+      "meaning": "Forbidden Machine Owner Keys and hashes"
+    },
+    {
+      "name": "MokListTrustedRT",
+      "format": "u8",
+      "meaning": "Shim indication for Linux MOK CA key trust",
+      "enum": {
+        "0": "Trust not requested",
+        "1": "Trust requested"
+      }
+    },
+    {
+      "name": "SbatLevelRT",
+      "format": "sbat-lines",
+      "meaning": "Runtime SBAT revocation levels",
+      "source": "https://github.com/rhboot/shim/blob/main/SBAT.md"
+    }
+  ]
+}

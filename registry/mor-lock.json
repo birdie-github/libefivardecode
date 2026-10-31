@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "guid": "bb983ccf-151d-40e1-a07b-4a17be168292",
+  "source": "https://learn.microsoft.com/en-us/windows-hardware/drivers/bringup/memory-overwrite-request-control-lock-version-2",
+  "rules": [
+    {
+      "name": "MemoryOverwriteRequestControlLock",
+      "format": "u8",
+      "meaning": "Memory overwrite request lock state",
+      "enum": {
+        "0": "Unlocked",
+        "1": "Locked without key",
+        "2": "Locked with key"
+      },
+      "otherwise": "reserved"
+    }
+  ]
+}

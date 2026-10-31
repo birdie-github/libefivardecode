@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "guid": "e20939be-32d4-41be-a150-897f85d49829",
+  "source": "https://learn.microsoft.com/en-us/windows-hardware/drivers/bringup/memory-overwrite-request-control-lock-version-2",
+  "rules": [
+    {
+      "name": "MemoryOverwriteRequestControl",
+      "format": "u8",
+      "meaning": "Memory overwrite request",
+      "bits": {
+        "0": "Clear memory on reset"
+      }
+    }
+  ]
+}

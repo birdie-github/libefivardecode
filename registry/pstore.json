@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "guid": "cfc8fc79-be2e-4ddc-97f0-9f98bfe298a0",
+  "source": "https://github.com/torvalds/linux/blob/master/drivers/firmware/efi/efi-pstore.c",
+  "rules": [
+    {
+      "family": "linux-pstore",
+      "format": "pstore",
+      "meaning": "Linux persistent kernel record"
+    }
+  ]
+}

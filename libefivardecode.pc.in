@@ -1,0 +1,5 @@
+Name: libefivardecode
+Description: Read-only structured UEFI variable decoder
+Version: @PROJECT_VERSION@
+Libs: -L@CMAKE_INSTALL_FULL_LIBDIR@ -lefivardecode
+Cflags: -I@CMAKE_INSTALL_FULL_INCLUDEDIR@
